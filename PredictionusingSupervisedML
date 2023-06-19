@@ -1,0 +1,50 @@
+import numpy as np
+import pandas as pd 
+import matplotlib.pyplot as plt
+from sklearn.linear_model import LinearRegression
+data = pd.read_csv('/content/student_scores.csv')
+
+# Understanding the dataset
+
+data.head()
+
+data.tail()
+
+data.shape
+
+data.info()
+
+# Checking for NULL values
+
+data.isna().sum()
+
+# Summary of the dataset
+
+data.describe()
+
+# Finding the correlation (relationship) between each column
+
+data.corr()
+
+# Visualization of the Number of Hours spent and the corresponding Scores obtained 
+
+data.plot(x='Hours', y='Scores', style='bp')
+plt.title('Hours vs Scores')
+plt.xlabel('Hours spent')
+plt.ylabel('Scores obtained')
+plt.show()
+
+# Linear Regression Model
+
+mlr = LinearRegression()
+mlr.fit(data[['Hours']], data['Scores'])
+
+plt.title('Hours vs Scores')
+plt.xlabel('Hours spent')
+plt.ylabel('Scores obtained')
+plt.scatter(data.Hours, data.Scores, marker='o',color='blue')
+plt.plot(data.Hours, mlr.predict(data[['Hours']]),color='magenta')
+
+# Predicted score if a student studies for 9.25 hrs/day
+
+mlr.predict([[9.25]])
